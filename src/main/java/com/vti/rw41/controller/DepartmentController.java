@@ -2,8 +2,11 @@ package com.vti.rw41.controller;
 
 import com.vti.rw41.entity.Department;
 import com.vti.rw41.servcie.DepartmentService;
+import com.vti.rw41.servcie.DepartmentServiceIml;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,8 +23,14 @@ public class DepartmentController {
     // [U] PUT /departments/{id} -> update department theo id
     // [D] DELETE /departments/{id} -> delete department theo id
 
+    //    @Setter
     @Autowired
-    DepartmentService departmentService;
+    DepartmentService departmentService; //inject
+
+//
+//    public DepartmentController(DepartmentService departmentService) {
+//        this.departmentService = departmentService;
+//    }
 
     @GetMapping
     public List<Department> getAllDepartment() {
@@ -53,7 +62,7 @@ public class DepartmentController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public Optional<Department> updateDepartmentById(@PathVariable Integer id,
-                                                        @RequestBody Department department) {
+                                                     @RequestBody Department department) {
 
         log.info("getDepartmentById={}", id);
         // log
