@@ -1,5 +1,6 @@
 package com.vti.rw41.servcie;
 
+import com.vti.rw41.dto.DepartmentRequest;
 import com.vti.rw41.entity.Department;
 
 import java.util.List;
@@ -11,10 +12,10 @@ public interface DepartmentService {
 
     Optional<Department> getDepartmentById(Integer i);
 
-    Department addDepartment(Department department);
+    Department addDepartment(DepartmentRequest department);
 
     Optional<Department> deleteDepartmentById(Integer id);
 
-    Optional<Department> updateDepartmentById(Integer id, Department department);
+    Optional<Department> updateDepartmentById(Integer id, DepartmentRequest department);
 
 }

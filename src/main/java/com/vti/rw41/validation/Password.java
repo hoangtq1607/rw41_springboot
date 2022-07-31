@@ -10,7 +10,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Password {
 
-    String message() default "Sai định dạng mật khẩu";
+    String message() default "{error.password}";
 
     Class<?>[] groups() default {};
 

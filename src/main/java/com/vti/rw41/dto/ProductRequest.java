@@ -14,12 +14,12 @@ public class ProductRequest {
     @Email
     private String email;
 
-    @NotNull(message = "Bạn phải nhập tên")
+    @NotNull
     @Length(min = 5, max = 12)
     private String name;
 
     @NotNull
-    @Positive(message = "Phải lớn hơn 0")
+    @Positive
     private Double price;
 
     @Password

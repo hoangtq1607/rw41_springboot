@@ -1,9 +1,9 @@
 package com.vti.rw41.servcie;
 
+import com.vti.rw41.dto.DepartmentRequest;
 import com.vti.rw41.entity.Department;
 import com.vti.rw41.reposioty.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -35,8 +35,10 @@ public class DepartmentServiceIml implements DepartmentService {
     }
 
     @Override
-    public Department addDepartment(Department department) {
-        return departmentRepository.addDepartment(department);
+    public Department addDepartment(DepartmentRequest department) {
+        Department d = new Department();
+        d.setDepartmentName(department.getDepartmentName());
+        return departmentRepository.addDepartment(d);
     }
 
     @Override
@@ -45,7 +47,7 @@ public class DepartmentServiceIml implements DepartmentService {
     }
 
     @Override
-    public Optional<Department> updateDepartmentById(Integer id, Department department) {
+    public Optional<Department> updateDepartmentById(Integer id, DepartmentRequest department) {
 
         return departmentRepository.updateDepartmentById(id, department);
     }

@@ -1,6 +1,7 @@
 package com.vti.rw41.reposioty;
 
 import com.vti.rw41.dto.DepartmentDto;
+import com.vti.rw41.dto.DepartmentRequest;
 import com.vti.rw41.entity.Department;
 import com.vti.rw41.utils.HibernateUtils;
 import org.hibernate.Session;
@@ -54,7 +55,7 @@ public class DepartmentRepository {
     }
 
     public Optional<Department> updateDepartmentById(Integer id,
-                                                     Department newDepartment) {
+                                                     DepartmentRequest newDepartment) {
         Optional<Department> departmentById = getDepartmentById(id);
         Session session = HibernateUtils.getSession();
         if (departmentById.isPresent()) {

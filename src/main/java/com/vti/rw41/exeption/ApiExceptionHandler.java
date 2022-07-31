@@ -18,12 +18,13 @@ public class ApiExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> handleValidationError(MethodArgumentNotValidException exception) {
         Map<String, String> messages = exception.getBindingResult().getFieldErrors().stream().map(this::createFieldErrorMessage)
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (s, s2) -> s + ", " + s2));
         return responseErrorMessages(messages, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleException(Exception exception) {
+        exception.printStackTrace();
         return responseErrorMessages(Map.of("error", "internal server error"), HttpStatus.BAD_REQUEST);
     }
 
