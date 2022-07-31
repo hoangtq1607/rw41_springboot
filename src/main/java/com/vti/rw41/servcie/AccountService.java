@@ -20,6 +20,6 @@ public class AccountService {
         accountEntity.setFullName(request.getFullName());
         accountEntity.setPassword(request.getPassword());
 
-        return accountRepository.saveAccount(accountEntity);
+        return accountRepository.save(accountEntity);
     }
 }

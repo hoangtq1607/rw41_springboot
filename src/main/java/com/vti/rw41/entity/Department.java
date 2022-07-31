@@ -13,5 +13,6 @@ public class Department {
     @Column(name = "DepartmentID")
     private Integer id;
 
+    @Column(name = "DepartmentName")
     private String departmentName;
 }

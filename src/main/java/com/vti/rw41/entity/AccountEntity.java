@@ -18,6 +18,7 @@ public class AccountEntity {
 
     private String password;
 
+//    @Column(name = "fullName")
     private String fullName;
 
     private LocalDate birthday;
