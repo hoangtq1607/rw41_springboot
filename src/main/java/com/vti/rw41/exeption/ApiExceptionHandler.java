@@ -17,7 +17,10 @@ public class ApiExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> handleValidationError(MethodArgumentNotValidException exception) {
-        Map<String, String> messages = exception.getBindingResult().getFieldErrors().stream().map(this::createFieldErrorMessage)
+        Map<String, String> messages = exception.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .map(this::createFieldErrorMessage)
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (s, s2) -> s + ", " + s2));
         return responseErrorMessages(messages, HttpStatus.BAD_REQUEST);
     }

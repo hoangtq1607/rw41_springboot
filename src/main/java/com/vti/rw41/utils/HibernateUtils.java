@@ -1,5 +1,6 @@
 package com.vti.rw41.utils;
 
+import com.vti.rw41.entity.AccountEntity;
 import com.vti.rw41.entity.Department;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -30,6 +31,7 @@ public class HibernateUtils {
 
         Configuration configuration = new Configuration();
         configuration.configure("hibernate.cfg.xml")
+                .addAnnotatedClass(AccountEntity.class)
                 .addAnnotatedClass(Department.class);
 
 
