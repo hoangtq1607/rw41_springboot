@@ -13,7 +13,7 @@ public class EmailNotUniqueValidator implements ConstraintValidator<EmailNotUniq
 
     @Override
     public boolean isValid(String email, ConstraintValidatorContext constraintValidatorContext) {
-        return accountRepository.isEmailNotExists(email);
+        return accountRepository.existsByEmail(email);
     }
 
 }

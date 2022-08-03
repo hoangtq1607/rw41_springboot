@@ -1,6 +1,6 @@
 package com.vti.rw41.servcie;
 
-import com.vti.rw41.dto.DepartmentRequest;
+import com.vti.rw41.dto.request.DepartmentRequest;
 import com.vti.rw41.entity.Department;
 
 import java.util.List;

@@ -1,13 +1,12 @@
 package com.vti.rw41.servcie;
 
-import com.vti.rw41.dto.DepartmentRequest;
+import com.vti.rw41.dto.request.DepartmentRequest;
 import com.vti.rw41.entity.Department;
 import com.vti.rw41.reposioty.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Optional;
 

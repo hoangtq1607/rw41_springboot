@@ -1,13 +1,10 @@
 package com.vti.rw41.controller;
 
-import com.vti.rw41.dto.DepartmentRequest;
+import com.vti.rw41.dto.request.DepartmentRequest;
 import com.vti.rw41.entity.Department;
 import com.vti.rw41.servcie.DepartmentService;
-import com.vti.rw41.servcie.DepartmentServiceIml;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;

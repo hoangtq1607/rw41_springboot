@@ -1,4 +1,4 @@
-package com.vti.rw41.dto;
+package com.vti.rw41.dto.request;
 
 
 import com.vti.rw41.validation.EmailNotUnique;
