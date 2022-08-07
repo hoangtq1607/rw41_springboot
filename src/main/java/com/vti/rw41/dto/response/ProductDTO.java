@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public class ProductDTO {
 
     private Integer id;
-    private String name;
+    private String productName;
     private Double price;
     private LocalDateTime createdDate;
     private String category;

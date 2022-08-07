@@ -3,11 +3,13 @@ package com.vti.rw41.servcie;
 import com.vti.rw41.dto.request.AccountRequest;
 import com.vti.rw41.entity.AccountEntity;
 import com.vti.rw41.entity.Department;
+import com.vti.rw41.exeption.ApiException;
 import com.vti.rw41.reposioty.AccountRepository;
 import com.vti.rw41.reposioty.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -23,6 +25,9 @@ public class AccountService {
     @Autowired
     DepartmentRepository departmentRepository;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @Transactional
     public AccountEntity registerAccount(AccountRequest request) {
 
@@ -30,17 +35,18 @@ public class AccountService {
         accountEntity.setEmail(request.getEmail());
         accountEntity.setBirthday(request.getBirthday());
         accountEntity.setFullName(request.getFullName());
-        accountEntity.setPassword(request.getPassword());
+        String encode = passwordEncoder.encode(request.getPassword());
+        accountEntity.setPassword(encode);
         accountRepository.save(accountEntity);
-
-        Department department = new Department();
-        department.setDepartmentName("test transactional");
-        departmentRepository.save(department);
         return accountEntity;
     }
 
     public Optional<AccountEntity> getAccountById(Integer accountId) {
-        return accountRepository.findById(accountId);
+        Optional<AccountEntity> accountEntity = accountRepository.findById(accountId);
+        if (accountEntity.isEmpty()) {
+            throw new ApiException("account.not.exists");
+        }
+        return accountEntity;
     }
 
     public List<AccountEntity> getAccountByName(String name) {

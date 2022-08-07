@@ -21,14 +21,4 @@ public class Rw41Application {
         SpringApplication.run(Rw41Application.class, args);
     }
 
-    @Autowired
-    AccountRepository accountRepository;
-
-    @Bean
-    CommandLineRunner commandLineRunner() {
-        return args -> {
-            accountRepository.updateNameById("Nguyen Van B", 1);
-        };
-    }
-
 }

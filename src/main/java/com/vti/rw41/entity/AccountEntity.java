@@ -16,11 +16,17 @@ public class AccountEntity {
 
     private String email;
 
+    private String phoneNumber;
+
     private String password;
 
 //    @Column(name = "fullName")
     private String fullName;
 
     private LocalDate birthday;
+
+
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
 
 }

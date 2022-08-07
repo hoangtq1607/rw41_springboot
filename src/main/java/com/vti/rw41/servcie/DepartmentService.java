@@ -16,6 +16,6 @@ public interface DepartmentService {
 
     Optional<Department> deleteDepartmentById(Integer id);
 
-    Optional<Department> updateDepartmentById(Integer id, DepartmentRequest department);
+    Department updateDepartmentById(Integer id, DepartmentRequest department);
 
 }

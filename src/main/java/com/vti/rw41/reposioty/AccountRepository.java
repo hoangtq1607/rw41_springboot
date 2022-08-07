@@ -29,4 +29,5 @@ public interface AccountRepository extends JpaRepository<AccountEntity, Integer>
     @Query("update AccountEntity set fullName = :name WHERE id = :id")
     int updateNameById(String name, Integer id);
 
+    AccountEntity findByEmailOrPhoneNumber(String email, String phoneNumber);
 }

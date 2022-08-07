@@ -2,6 +2,7 @@ package com.vti.rw41.servcie;
 
 import com.vti.rw41.dto.response.ProductDTO;
 import com.vti.rw41.reposioty.ProductRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,12 +17,12 @@ public class ProductService {
     public Page<ProductDTO> getAllProduct(Pageable pageable) {
         return productRepository.findAll(pageable)
                 .map(productEntity -> {
+
                     ProductDTO dto = new ProductDTO();
-                    dto.setId(productEntity.getId());
-                    dto.setName(productEntity.getProductName());
-                    dto.setCategory(productEntity.getCategory().getName());
-                    dto.setPrice(productEntity.getPrice());
-                    dto.setCreatedDate(productEntity.getCreatedDate());
+                    BeanUtils.copyProperties(productEntity, dto);
+                    if (productEntity.getCategory() != null) {
+                        dto.setCategory(productEntity.getCategory().getName());
+                    }
                     return dto;
                 });
     }
