@@ -3,6 +3,7 @@ package com.vti.rw41.servcie;
 import com.vti.rw41.dto.request.AccountRequest;
 import com.vti.rw41.dto.request.LoginRequest;
 import com.vti.rw41.entity.AccountEntity;
+import com.vti.rw41.entity.UserRole;
 import com.vti.rw41.exeption.ApiException;
 import com.vti.rw41.reposioty.AccountRepository;
 import com.vti.rw41.reposioty.DepartmentRepository;
@@ -14,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -48,6 +50,7 @@ public class AccountService {
         accountEntity.setFullName(request.getFullName());
         String encode = passwordEncoder.encode(request.getPassword());
         accountEntity.setPassword(encode);
+        accountEntity.setRole(UserRole.USER);
         accountRepository.save(accountEntity);
         return accountEntity;
     }
@@ -69,11 +72,16 @@ public class AccountService {
     }
 
     public ResponseEntity<String> login(LoginRequest request) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
-        if (passwordEncoder.matches(request.getPassword(), userDetails.getPassword())) {
-            String token = jwtTokenProvider.createToken(request.getEmail(), userDetails.getAuthorities());
-            return ResponseEntity.ok(token);
+        try {
+            UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
+            if (passwordEncoder.matches(request.getPassword(), userDetails.getPassword())) {
+                String token = jwtTokenProvider.createToken(request.getEmail(), userDetails.getAuthorities());
+                return ResponseEntity.ok(token);
+            }
+        } catch (UsernameNotFoundException ignored) {
+
         }
+
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
