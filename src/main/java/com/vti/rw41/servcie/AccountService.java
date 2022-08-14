@@ -1,14 +1,19 @@
 package com.vti.rw41.servcie;
 
 import com.vti.rw41.dto.request.AccountRequest;
+import com.vti.rw41.dto.request.LoginRequest;
 import com.vti.rw41.entity.AccountEntity;
-import com.vti.rw41.entity.Department;
 import com.vti.rw41.exeption.ApiException;
 import com.vti.rw41.reposioty.AccountRepository;
 import com.vti.rw41.reposioty.DepartmentRepository;
+import com.vti.rw41.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +32,12 @@ public class AccountService {
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
+
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     @Transactional
     public AccountEntity registerAccount(AccountRequest request) {
@@ -55,6 +66,15 @@ public class AccountService {
 
     public Page<AccountEntity> getAllAccounts(Pageable pageable) {
         return accountRepository.findAll(pageable);
+    }
+
+    public ResponseEntity<String> login(LoginRequest request) {
+        UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
+        if (passwordEncoder.matches(request.getPassword(), userDetails.getPassword())) {
+            String token = jwtTokenProvider.createToken(request.getEmail(), userDetails.getAuthorities());
+            return ResponseEntity.ok(token);
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
 }
